@@ -40,7 +40,7 @@ module ActiveModel
       @options[:unique_values] = {}
 
       array = serializable_array.map do |item|
-        if item.respond_to?(:serializable_hash)
+        if item.respond_to?(:serializable_hash) && !@options.has_key?(:include_nested_root_node)
           item.serializable_hash
         else
           item.as_json
