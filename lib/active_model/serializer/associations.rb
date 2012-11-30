@@ -39,8 +39,9 @@ module ActiveModel
         end
 
         def target_serializer
-          option(:serializer)
-        end
+          serializer = option(:serializer)
+          serializer.is_a?(String) ? serializer.constantize : serializer
+        end        
 
         def source_serializer
           @source
