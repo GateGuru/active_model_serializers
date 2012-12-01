@@ -38,9 +38,10 @@ module ActiveModel
     def as_json(*args)
       @options[:hash] = hash = {}
       @options[:unique_values] = {}
+      include_nested_root_node = @options.has_key?(:include_nested_root_node) && @options[:include_nested_root_node]
 
       array = serializable_array.map do |item|
-        if item.respond_to?(:serializable_hash) && !@options.has_key?(:include_nested_root_node)
+        if item.respond_to?(:serializable_hash) && !include_nested_root_node
           item.serializable_hash
         else
           item.as_json
